@@ -10,12 +10,52 @@ export default function Add() {
     const [difficulty, setDifficulty] = useState("");
     const [dateCompleted, setDateCompleted] = useState("")
 
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formattedTopics = topics.split(",").map(topic => topic.trim());
+        const problemData = {
+            title,
+            link,
+            topics: formattedTopics,
+            difficulty,
+            dateCompleted,
+        };
+
+        try {
+            const response = await fetch("/api/problems", {
+            method: "POST",
+            headers: {
+                    "Content-Type": "application/json",
+            },
+            body: JSON.stringify(problemData),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to submit problem");
+        }
+
+        // Optional: Handle success
+        alert("Problem added successfully!");
+    
+        // Reset the form
+        setTitle("");
+        setLink("");
+        setTopics("");
+        setDifficulty("");
+        setDateCompleted("");
+    } catch (err) {
+        console.error("Error:", err);
+        alert("Submission failed. Try again.");
+    }
+
+    }
+
 
     return (
         <div>
             <main className = "bg-stone-200 min-h-screen">
                 <Navbar />
-                <form className = "flex flex-col text-black space-y-4 mt-10 items-center">
+                <form onSubmit = {handleSubmit} className = "flex flex-col text-black space-y-4 mt-10 items-center">
 
                     <div className = "flex flex-col items-center">
                         <label>Problem Name</label>
