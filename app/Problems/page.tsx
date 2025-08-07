@@ -32,10 +32,10 @@ export default function Problem() {
         <div>
             <main className = "bg-stone-200 min-h-screen">
                 <Navbar />
-                <h1 className="text-2xl font-bold mb-6">Submitted Problems</h1>
+                <h1 className="text-2xl font-bold mb-6 text-center text-black">Submitted Problems</h1>
                 <ul className="space-y-4">
                     {problems.map((problem, index) => (
-                        <li key={index} className="border p-4 rounded bg-white">
+                        <li key={index} className="border p-4 rounded bg-white text-black">
                             <p><strong>Title:</strong> {problem.title}</p>
                             <p><strong>Link:</strong> <a href={problem.link} className="text-blue-500 underline">{problem.link}</a></p>
                             <p><strong>Topics:</strong> {problem.topics.join(", ")}</p>
